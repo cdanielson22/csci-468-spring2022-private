@@ -13,7 +13,7 @@ public class CatScriptTokenizer {
     public CatScriptTokenizer(String source) {
         src = source;
         tokenList = new TokenList(this);
-        tokenize();
+        tokenize(); // hi there
     }
 
     private void tokenize() {
