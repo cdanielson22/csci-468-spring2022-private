@@ -40,20 +40,26 @@ public class CatScriptTokenizer {
 
     private boolean scanString() {
         // TODO implement string scanning here!
+
         if(matchAndConsume('\"')){
-            if ( isAlpha(peek())) {
-                int start = postion;
-                while (isAlphaNumeric(peek())){
-                    takeChar();
-                }
+            int start = postion;
+            while (!tokenizationEnd() && (isAlphaNumeric(peek()) || ' ' == peek())){
+                takeChar();
+            }
+            if (matchAndConsume('\"')){
+                postion--;
                 String value = src.substring(start, postion);
                 tokenList.addToken(STRING, value, start, postion, line, lineOffset);
+                postion++;
+                return true;
             }
+
+            tokenList.addToken(ERROR, "Unterminated String", start, postion, line, lineOffset);
             return true;
 
-        }else {
-            return false;
         }
+
+        return false;
 
     }
 
