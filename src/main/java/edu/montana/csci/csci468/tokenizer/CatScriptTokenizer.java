@@ -47,9 +47,7 @@ public class CatScriptTokenizer {
             StringBuffer str = new StringBuffer();
             int start = postion;
             while (!tokenizationEnd() && peek() != '\"'){
-                if (matchAndConsume('\\')) {
-
-                }
+                matchAndConsume('\\');
                 if (!tokenizationEnd()) {
                     str.append(peek());
                     takeChar();
