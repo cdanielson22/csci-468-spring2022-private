@@ -1,5 +1,7 @@
 package edu.montana.csci.csci468.tokenizer;
 
+import java.nio.Buffer;
+
 import static edu.montana.csci.csci468.tokenizer.TokenType.*;
 
 public class CatScriptTokenizer {
@@ -42,19 +44,24 @@ public class CatScriptTokenizer {
         // TODO implement string scanning here!
 
         if(matchAndConsume('\"')){
+            StringBuffer str = new StringBuffer();
             int start = postion;
-            while (!tokenizationEnd() && (isAlphaNumeric(peek()) || ' ' == peek())){
-                takeChar();
-            }
-            if (matchAndConsume('\"')){
-                postion--;
-                String value = src.substring(start, postion);
-                tokenList.addToken(STRING, value, start, postion, line, lineOffset);
-                postion++;
-                return true;
-            }
+            while (!tokenizationEnd() && peek() != '\"'){
+                if (matchAndConsume('\\')) {
 
-            tokenList.addToken(ERROR, "Unterminated String", start, postion, line, lineOffset);
+                }
+                if (!tokenizationEnd()) {
+                    str.append(peek());
+                    takeChar();
+                }
+            }
+            if (matchAndConsume('\"')) {
+
+                tokenList.addToken(STRING, str.toString(), start, postion, line, lineOffset);
+
+            } else {
+                tokenList.addToken(ERROR, "Unterminated String", start, postion, line, lineOffset);
+            }
             return true;
 
         }
@@ -107,6 +114,8 @@ public class CatScriptTokenizer {
                 while (peek() != '\n' && !tokenizationEnd()) {
                     takeChar();
                 }
+                line++;
+
             } else {
                 tokenList.addToken(SLASH, "-", start, postion, line, lineOffset);
             }
@@ -169,6 +178,8 @@ public class CatScriptTokenizer {
                 continue;
             } else if (c == '\n') {
                 postion++;
+                line++;
+                lineOffset = 0;
                 continue;
             }
             break;
