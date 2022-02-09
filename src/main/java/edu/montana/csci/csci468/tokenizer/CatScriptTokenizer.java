@@ -173,6 +173,7 @@ public class CatScriptTokenizer {
             char c = peek();
             if (c == ' ' || c == '\r' || c == '\t') {
                 postion++;
+                lineOffset++;
                 continue;
             } else if (c == '\n') {
                 postion++;
@@ -210,6 +211,7 @@ public class CatScriptTokenizer {
     private char takeChar() {
         char c = src.charAt(postion);
         postion++;
+        lineOffset++;
         return c;
     }
 
