@@ -41,7 +41,7 @@ public class CatScriptTokenizer {
     }
 
     private boolean scanString() {
-        // TODO implement string scanning here! yeet
+        // TODO implement string scanning here!
 
         if(matchAndConsume('\"')){
             StringBuffer str = new StringBuffer();
