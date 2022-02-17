@@ -117,6 +117,42 @@ public class CatScriptParser {
             IntegerLiteralExpression integerExpression = new IntegerLiteralExpression(integerToken.getStringValue());
             integerExpression.setToken(integerToken);
             return integerExpression;
+        } else if (tokens.match(IDENTIFIER)) {
+            Token idenToken = tokens.consumeToken();
+            IdentifierExpression idenExpress = new IdentifierExpression(idenToken.getStringValue());
+            idenExpress.setToken(idenToken);
+            return idenExpress;
+        } else if (tokens.match(STRING)) {
+            Token strToken = tokens.consumeToken();
+            StringLiteralExpression strExpress = new StringLiteralExpression(strToken.getStringValue());
+            strExpress.setToken(strToken);
+            return strExpress;
+        } else if (tokens.match(TRUE, FALSE)) {
+            Token trueToken = tokens.consumeToken();
+            if (trueToken.getStringValue().equals("true")) {
+                BooleanLiteralExpression trueExp = new BooleanLiteralExpression(trueToken.getStringValue().equals("true"));
+                return trueExp;
+            } else {
+                BooleanLiteralExpression falseExp = new BooleanLiteralExpression(trueToken.getStringValue().equals("false"));
+                return falseExp;
+            }
+
+
+        } else if (tokens.match(NULL)) {
+            Token nullToken = tokens.consumeToken();
+            NullLiteralExpression nullExp = new NullLiteralExpression();
+            return nullExp;
+
+        } else if (tokens.match(LEFT_PAREN)) {
+            Token leftToken = tokens.consumeToken();
+            StringLiteralExpression strEpres = new StringLiteralExpression(leftToken.getStringValue());
+            ParenthesizedExpression expression = new ParenthesizedExpression(strEpres);
+            return expression;
+        } else if (tokens.match(RIGHT_PAREN)){
+            Token rightToken = tokens.consumeToken();
+            StringLiteralExpression strEpres = new StringLiteralExpression(rightToken.getStringValue());
+            ParenthesizedExpression expression = new ParenthesizedExpression(strEpres);
+            return expression;
         } else {
             SyntaxErrorExpression syntaxErrorExpression = new SyntaxErrorExpression(tokens.consumeToken());
             return syntaxErrorExpression;
