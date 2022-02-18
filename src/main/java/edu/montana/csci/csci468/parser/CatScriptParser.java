@@ -6,6 +6,8 @@ import edu.montana.csci.csci468.tokenizer.CatScriptTokenizer;
 import edu.montana.csci.csci468.tokenizer.Token;
 import edu.montana.csci.csci468.tokenizer.TokenList;
 import edu.montana.csci.csci468.tokenizer.TokenType;
+import java.util.LinkedList;
+import java.util.List;
 
 import static edu.montana.csci.csci468.tokenizer.TokenType.*;
 
@@ -157,8 +159,12 @@ public class CatScriptParser {
             integerExpression.setToken(integerToken);
             return integerExpression;
         } else if (tokens.match(IDENTIFIER)) {
-            Token idenToken = tokens.consumeToken();
+
+            if (tokens.getNext().getType().equals(LEFT_PAREN)){
+                return parseFunctionExpression();
+            }
             // do another if that checks the next token and calls functions if it does
+            Token idenToken = tokens.consumeToken();
             IdentifierExpression idenExpress = new IdentifierExpression(idenToken.getStringValue());
             idenExpress.setToken(idenToken);
             return idenExpress;
@@ -190,18 +196,42 @@ public class CatScriptParser {
             StringLiteralExpression strEpres = new StringLiteralExpression(rightToken.getStringValue());
             ParenthesizedExpression expression = new ParenthesizedExpression(strEpres);
             return expression;
-        } //else if(tokens.match(LEFT_BRACKET)) {
-            //return parseListExpression();
-        //}
+        } else if(tokens.match(LEFT_BRACKET)) {
+            return parseListExpression();
+        }
         else {
             SyntaxErrorExpression syntaxErrorExpression = new SyntaxErrorExpression(tokens.consumeToken());
             return syntaxErrorExpression;
         }
     }
 
+    private Expression parseFunctionExpression(){
+        Token token = tokens.consumeToken();
+        tokens.consumeToken();
+        List<Expression> expressionList = new LinkedList<>();
+        while(!tokens.match(RIGHT_PAREN)){
+            Expression expression = parseExpression();
+            expressionList.add(expression);
+            if (tokens.match(COMMA)) {
+                tokens.consumeToken();
+            }
+        }
+        FunctionCallExpression fucntionExpression = new FunctionCallExpression(token.getStringValue(), expressionList);
+        return fucntionExpression;
+    }
+
     private Expression parseListExpression(){
         Token token = tokens.consumeToken();
-        return null;
+        List<Expression> expressList = new LinkedList<>();
+        while(!tokens.match(RIGHT_BRACKET)) {
+            Expression expression = parseExpression();
+            expressList.add(expression);
+            if (tokens.match(COMMA)) {
+                tokens.consumeToken();
+            }
+        }
+        ListLiteralExpression listExpress = new ListLiteralExpression(expressList);
+        return listExpress;
     }
 
     //============================================================

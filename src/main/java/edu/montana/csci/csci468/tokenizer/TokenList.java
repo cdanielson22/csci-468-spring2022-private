@@ -32,6 +32,8 @@ public class TokenList implements Iterable<Token> {
         return tokens.get(currentToken++);
     }
 
+    public Token getNext(){ return tokens.get(currentToken+1); }
+
     public boolean matchAndConsume(TokenType... type) {
         if (match(type)) {
             consumeToken();
