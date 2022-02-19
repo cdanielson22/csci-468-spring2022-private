@@ -9,6 +9,7 @@ import edu.montana.csci.csci468.tokenizer.TokenType;
 import java.util.LinkedList;
 import java.util.List;
 
+
 import static edu.montana.csci.csci468.tokenizer.TokenType.*;
 
 public class CatScriptParser {
@@ -207,9 +208,14 @@ public class CatScriptParser {
 
     private Expression parseFunctionExpression(){
         Token token = tokens.consumeToken();
+        ErrorType er = null;
         tokens.consumeToken();
         List<Expression> expressionList = new LinkedList<>();
         while(!tokens.match(RIGHT_PAREN)){
+            if (tokens.match(EOF)){
+                er = ErrorType.UNTERMINATED_ARG_LIST;
+                break;
+            }
             Expression expression = parseExpression();
             expressionList.add(expression);
             if (tokens.match(COMMA)) {
@@ -217,13 +223,21 @@ public class CatScriptParser {
             }
         }
         FunctionCallExpression fucntionExpression = new FunctionCallExpression(token.getStringValue(), expressionList);
+        if(er != null) {
+            fucntionExpression.addError(er);
+        }
         return fucntionExpression;
     }
 
     private Expression parseListExpression(){
         Token token = tokens.consumeToken();
+        ErrorType er = null;
         List<Expression> expressList = new LinkedList<>();
         while(!tokens.match(RIGHT_BRACKET)) {
+            if (tokens.match(EOF)){
+                er = ErrorType.UNTERMINATED_LIST;
+                break;
+            }
             Expression expression = parseExpression();
             expressList.add(expression);
             if (tokens.match(COMMA)) {
@@ -231,6 +245,9 @@ public class CatScriptParser {
             }
         }
         ListLiteralExpression listExpress = new ListLiteralExpression(expressList);
+        if(er != null) {
+            listExpress.addError(er);
+        }
         return listExpress;
     }
 
