@@ -61,7 +61,116 @@ public class CatScriptParser {
         if (printStmt != null) {
             return printStmt;
         }
+        Statement asssingmentStatment = parseAssignmentStatement();
+        if (asssingmentStatment != null){
+            return asssingmentStatment;
+        }
+        Statement ifStatement = parseIfStatemnet();
+        if (ifStatement != null){
+            return ifStatement;
+        }
+        Statement forStatement = parseForStatement();
+        if (forStatement != null) {
+            return forStatement;
+        }
+
+
         return new SyntaxErrorStatement(tokens.consumeToken());
+    }
+
+    private Statement parseForStatement(){
+        ForStatement forStatement = new ForStatement();
+        if (tokens.getCurrentToken().getStringValue().equals("for")){
+            forStatement.setStart(tokens.consumeToken());
+            if (tokens.match(LEFT_PAREN)){
+                require(LEFT_PAREN, forStatement);
+                forStatement.setVariableName(tokens.getCurrentToken().getStringValue());
+                tokens.consumeToken();
+                tokens.consumeToken();
+                forStatement.setExpression(parseExpression());
+                require(RIGHT_PAREN, forStatement);
+                require(LEFT_BRACE, forStatement);
+                List<Statement> stateList = new LinkedList<>();
+                while (!tokens.match(RIGHT_BRACE)) {
+                    if(tokens.match(EOF)) {
+                        forStatement.addError(ErrorType.UNEXPECTED_TOKEN);
+                        break;
+                    }
+                    Statement state = parseProgramStatement();
+                    stateList.add(state);
+                }
+                require(RIGHT_BRACE, forStatement);
+                forStatement.setBody(stateList);
+            }
+        } else {
+            return null;
+        }
+        forStatement.setEnd(require(tokens.lastToken().getType(), forStatement));
+        return forStatement;
+    }
+
+    private Statement parseIfStatemnet() {
+        IfStatement ifStatement = new IfStatement();
+        if(tokens.getCurrentToken().getStringValue().equals("if")){
+            ifStatement.setStart(tokens.consumeToken());
+            if (tokens.match(LEFT_PAREN)){
+                require(LEFT_PAREN, ifStatement);
+                ifStatement.setExpression(parseExpression());
+                if(tokens.match(RIGHT_PAREN)){
+                    require(RIGHT_PAREN, ifStatement);
+                    if (tokens.match(LEFT_BRACE)) {
+                        require(LEFT_BRACE, ifStatement);
+                        // check grammar parseStatement()
+                        List<Statement> stateList = new LinkedList<>();
+                        while (!tokens.match(RIGHT_BRACE)) {
+                            if(tokens.match(EOF)) {
+                                ifStatement.addError(ErrorType.UNEXPECTED_TOKEN);
+                                break;
+                            }
+                            Statement state = parseProgramStatement();
+                            stateList.add(state);
+                        }
+                        require(RIGHT_BRACE, ifStatement);
+                        ifStatement.setTrueStatements(stateList);
+                        // need to check if there is an else statement
+                        if (tokens.getCurrentToken().getStringValue().equals("else")) {
+                            require(LEFT_BRACE, ifStatement);
+                            List<Statement> elseList = new LinkedList<>();
+                            while (!tokens.match(RIGHT_BRACE)) {
+                                if(tokens.match(EOF)) {
+                                    ifStatement.addError(ErrorType.UNEXPECTED_TOKEN);
+                                    break;
+                                }
+                                Statement state = parseProgramStatement();
+                                elseList.add(state);
+                            }
+                            require(RIGHT_BRACE, ifStatement);
+                            ifStatement.setElseStatements(elseList);
+                        }
+                    }
+                }
+            }
+        } else {
+            return null;
+        }
+        ifStatement.setEnd(require(tokens.lastToken().getType(), ifStatement));
+        return ifStatement;
+    }
+
+    private Statement parseAssignmentStatement(){
+        if(tokens.match(IDENTIFIER)){
+
+            AssignmentStatement assignmentStatement = new AssignmentStatement();
+            assignmentStatement.setVariableName(tokens.getCurrentToken().getStringValue());
+            assignmentStatement.setStart(tokens.consumeToken());
+            require(EQUAL, assignmentStatement);
+            assignmentStatement.setExpression(parseExpression());
+            assignmentStatement.setEnd(require(tokens.lastToken().getType(), assignmentStatement));
+            return assignmentStatement;
+
+        } else {
+            return null;
+        }
     }
 
     private Statement parsePrintStatement() {
@@ -244,6 +353,7 @@ public class CatScriptParser {
                 tokens.consumeToken();
             }
         }
+        tokens.matchAndConsume(RIGHT_BRACKET);
         ListLiteralExpression listExpress = new ListLiteralExpression(expressList);
         if(er != null) {
             listExpress.addError(er);
