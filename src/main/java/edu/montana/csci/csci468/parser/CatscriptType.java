@@ -32,9 +32,7 @@ public class CatscriptType {
     }
 
     // TODO memoize this call
-    public static CatscriptType getListType(CatscriptType type) {
-        return new ListType(type);
-    }
+    public static CatscriptType getListType(CatscriptType type) { return new ListType(type); }
 
     @Override
     public String toString() {

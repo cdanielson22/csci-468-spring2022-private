@@ -53,7 +53,12 @@ public class EqualityExpression extends Expression {
 
     @Override
     public Object evaluate(CatscriptRuntime runtime) {
-        return super.evaluate(runtime);
+        if (isEqual()) {
+            return leftHandSide.evaluate(runtime) == rightHandSide.evaluate(runtime);
+        } else {
+            return leftHandSide.evaluate(runtime) != rightHandSide.evaluate(runtime);
+        }
+
     }
 
     @Override
