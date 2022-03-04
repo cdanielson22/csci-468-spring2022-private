@@ -67,14 +67,33 @@ public class AdditiveExpression extends Expression {
 
     @Override
     public Object evaluate(CatscriptRuntime runtime) {
-        Integer lhsValue = (Integer) leftHandSide.evaluate(runtime);
-        Integer rhsValue = (Integer) rightHandSide.evaluate(runtime);
-        //TODO handle string case
-        if (isAdd()) {
+        CatscriptType lhs = leftHandSide.getType();
+        String lhss = lhs.toString();
+        CatscriptType rhs = rightHandSide.getType();
+        String rhss = rhs.toString();
+
+        if (!lhss.equals("int")) {
+            String lhsValue = String.valueOf(leftHandSide.evaluate(runtime));
+            String rhsValue = String.valueOf(rightHandSide.evaluate(runtime));
             return lhsValue + rhsValue;
         } else {
-            return lhsValue - rhsValue;
+            Integer lhsValue = (Integer) leftHandSide.evaluate(runtime);
+            if (!rhss.equals("int")) {
+                String rhsValue = String.valueOf(rightHandSide.evaluate(runtime));
+                lhsValue.toString();
+                if (isAdd()) {
+                    return lhsValue + rhsValue;
+                }
+            } else {
+                Integer rhsValue = (Integer) rightHandSide.evaluate(runtime);
+                if (isAdd()) {
+                    return lhsValue + rhsValue;
+                } else {
+                    return lhsValue - rhsValue;
+                }
+            }
         }
+        return  null;
     }
 
     @Override
