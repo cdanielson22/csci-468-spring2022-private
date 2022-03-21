@@ -32,7 +32,11 @@ public class FunctionCallStatement extends Statement {
     //==============================================================
     @Override
     public void execute(CatscriptRuntime runtime) {
-        super.execute(runtime);
+        runtime.getValue(expression.getName());
+        runtime.pushScope();
+        List<Object> argList = (List) getArguments();
+        getProgram().getFunction(expression.getName()).invoke(runtime, argList);
+        runtime.popScope();
     }
 
     @Override

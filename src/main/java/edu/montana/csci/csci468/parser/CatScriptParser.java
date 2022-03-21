@@ -279,10 +279,15 @@ public class CatScriptParser {
                 Statement state = parseProgramStatement();
                 stateList.add(state);
             }
-            require(RIGHT_BRACE, ifStatement);
+            if (tokens.hasMoreTokens() && tokens.getNext().getStringValue().equals("else")) {
+                require(RIGHT_BRACE, ifStatement);
+            } else {
+                ifStatement.setEnd(require(RIGHT_BRACE, ifStatement));
+            }
             ifStatement.setTrueStatements(stateList);
             // need to check if there is an else statement
             if (tokens.getCurrentToken().getStringValue().equals("else")) {
+                tokens.consumeToken();
                 require(LEFT_BRACE, ifStatement);
                 List<Statement> elseList = new LinkedList<>();
                 while (!tokens.match(RIGHT_BRACE)) {
@@ -295,11 +300,12 @@ public class CatScriptParser {
                 }
                 //require(RIGHT_BRACE, ifStatement);
                 ifStatement.setElseStatements(elseList);
+                ifStatement.setEnd(require(RIGHT_BRACE, ifStatement));
             }
         } else {
             return null;
         }
-        ifStatement.setEnd(require(RIGHT_BRACE, ifStatement));
+        //ifStatement.setEnd(require(RIGHT_BRACE, ifStatement)); // this require only works if i have an else statement
         return ifStatement;
     }
 
@@ -473,6 +479,7 @@ public class CatScriptParser {
             }
         }
         FunctionCallExpression fucntionExpression = new FunctionCallExpression(token.getStringValue(), expressionList);
+        tokens.consumeToken();
         if(er != null) {
             fucntionExpression.addError(er);
         }
