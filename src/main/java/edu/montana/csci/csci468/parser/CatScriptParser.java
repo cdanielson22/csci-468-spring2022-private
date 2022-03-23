@@ -479,7 +479,7 @@ public class CatScriptParser {
             }
         }
         FunctionCallExpression fucntionExpression = new FunctionCallExpression(token.getStringValue(), expressionList);
-        tokens.consumeToken();
+        tokens.matchAndConsume(RIGHT_PAREN);
         if(er != null) {
             fucntionExpression.addError(er);
         }
