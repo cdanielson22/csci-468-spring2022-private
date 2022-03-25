@@ -223,12 +223,15 @@ public class CatScriptParser {
             return CatscriptType.OBJECT;
         }
         if (tokens.getCurrentToken().getStringValue().equals("list")) {
-            tokens.consumeToken();
-            tokens.consumeToken();
-            CatscriptType type = parseTypeExpression();
-            CatscriptType.ListType myType = new CatscriptType.ListType(type);
-            tokens.consumeToken();
-            return myType;
+            if(tokens.getNext().getStringValue().equals("<")) {
+                tokens.consumeToken();
+                tokens.consumeToken();
+                CatscriptType type = parseTypeExpression();
+                CatscriptType.ListType myType = new CatscriptType.ListType(type);
+                tokens.consumeToken();
+                return myType;
+            }
+            return CatscriptType.OBJECT;
         }
         return null;
     }
@@ -436,12 +439,15 @@ public class CatScriptParser {
             strExpress.setToken(strToken);
             return strExpress;
         } else if (tokens.match(TRUE)) {
-            tokens.consumeToken();
             BooleanLiteralExpression trueExp = new BooleanLiteralExpression(true);
+            trueExp.setToken(tokens.getCurrentToken());
+            tokens.consumeToken();
             return trueExp;
         } else if (tokens.match(FALSE)) {
-            tokens.consumeToken();
+
             BooleanLiteralExpression falseExp = new BooleanLiteralExpression(false);
+            falseExp.setToken(tokens.getCurrentToken());
+            tokens.consumeToken();
             return falseExp;
         } else if (tokens.match(NULL)) {
             Token nullToken = tokens.consumeToken();

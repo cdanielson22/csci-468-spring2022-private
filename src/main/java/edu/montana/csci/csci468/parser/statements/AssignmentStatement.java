@@ -35,6 +35,9 @@ public class AssignmentStatement extends Statement {
         if (symbolType == null) {
             addError(ErrorType.UNKNOWN_NAME);
         } else {
+            if(!symbolType.isAssignableFrom(expression.getType())) {
+                addError(ErrorType.INCOMPATIBLE_TYPES);
+            }
             // TOOD - verify compatilibity of types
         }
     }

@@ -45,17 +45,19 @@ public class VariableStatement extends Statement {
     @Override
     public void validate(SymbolTable symbolTable) {
         expression.validate(symbolTable);
+        type = expression.getType();
         if (symbolTable.hasSymbol(variableName)) {
             addError(ErrorType.DUPLICATE_NAME);
-        } else {
+        }  else {
 
             // TODO if there is an explicit type, ensure it is correct
             //      if not, infer the type from the right hand side expression
             if (explicitType != null) {
-                type = explicitType;
-                symbolTable.registerSymbol(variableName, type);
+                symbolTable.registerSymbol(variableName, explicitType);
+                if(!explicitType.isAssignableFrom(type)) {
+                    addError(ErrorType.INCOMPATIBLE_TYPES);
+                }
             } else {
-                type = expression.getType();
                 symbolTable.registerSymbol(variableName, type);
             }
         }
