@@ -30,228 +30,31 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running edu.montana.csci.csci468.parser.CatscriptParserExpressionsTest
-[ERROR] Tests run: 29, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.107 s <<< FAILURE! - in edu.montana.csci.csci468.parser.CatscriptParserExpressionsTest
-[ERROR] parseUnterminatedFunctionCallExpression  Time elapsed: 0.012 s  <<< ERROR!
-java.lang.IndexOutOfBoundsException: Index 6 out of bounds for length 6
-	at edu.montana.csci.csci468.parser.CatscriptParserExpressionsTest.parseUnterminatedFunctionCallExpression(CatscriptParserExpressionsTest.java:110)
-
+[INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s - in edu.montana.csci.csci468.parser.CatscriptParserExpressionsTest
 [INFO] Running edu.montana.csci.csci468.parser.CatscriptParserErrorsTest
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in edu.montana.csci.csci468.parser.CatscriptParserErrorsTest
 [INFO] Running edu.montana.csci.csci468.parser.CatscriptParserStatementsTest
-[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s - in edu.montana.csci.csci468.parser.CatscriptParserStatementsTest
+[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 s - in edu.montana.csci.csci468.parser.CatscriptParserStatementsTest
 [INFO] Running edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest
-[ERROR] Tests run: 10, Failures: 2, Errors: 5, Skipped: 0, Time elapsed: 0.03 s <<< FAILURE! - in edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest
-[ERROR] comparativeTypeError  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "edu.montana.csci.csci468.tokenizer.Token.getLine()" because "this.location" is null
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.comparativeTypeError(CatscriptParserTypeCheckingTest.java:77)
-
-[ERROR] identifiersWorkProperly  Time elapsed: 0.003 s  <<< ERROR!
-edu.montana.csci.csci468.parser.ParseErrorException: 
-Parse Errors Occurred:
-
-Line 1:var x = 1 print( x )
-                       ^
-
-Error: This symbol is not defined
-
-
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.identifiersWorkProperly(CatscriptParserTypeCheckingTest.java:32)
-
-[ERROR] typeInferenceWorksForVars  Time elapsed: 0.003 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <int> but was: <null>
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.typeInferenceWorksForVars(CatscriptParserTypeCheckingTest.java:45)
-
-[ERROR] assignmentTypeError  Time elapsed: 0.002 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <Incompatible types> but was: <This symbol is not defined>
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.assignmentTypeError(CatscriptParserTypeCheckingTest.java:55)
-
-[ERROR] factorTypeError  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "edu.montana.csci.csci468.tokenizer.Token.getLine()" because "this.location" is null
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.factorTypeError(CatscriptParserTypeCheckingTest.java:67)
-
-[ERROR] additiveTypeError  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "edu.montana.csci.csci468.tokenizer.Token.getLine()" because "this.location" is null
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.additiveTypeError(CatscriptParserTypeCheckingTest.java:72)
-
-[ERROR] varTypeError  Time elapsed: 0.004 s  <<< ERROR!
-java.lang.IllegalStateException: The code var x : bool = 10 did not throw an error!
-	at edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest.varTypeError(CatscriptParserTypeCheckingTest.java:50)
-
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 s - in edu.montana.csci.csci468.parser.CatscriptParserTypeCheckingTest
 [INFO] Running edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest
-[ERROR] Tests run: 8, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.008 s <<< FAILURE! - in edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest
-[ERROR] paramsConflictWithGlobalVars  Time elapsed: 0.005 s  <<< ERROR!
-java.lang.IllegalStateException: 
-The code var x = 10
-function foo(x){ print(x) } did not throw an error!
-	at edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest.paramsConflictWithGlobalVars(CatscriptParserSymbolCheckingTest.java:46)
-
-[ERROR] duplicateVarsErrors  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.IllegalStateException: 
-The code var x = 10
-var x = 12 did not throw an error!
-	at edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest.duplicateVarsErrors(CatscriptParserSymbolCheckingTest.java:16)
-
-[ERROR] forVarConflict  Time elapsed: 0 s  <<< ERROR!
-java.lang.IllegalStateException: 
-The code var x = 10
-for(x in []){ print(x) } did not throw an error!
-	at edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest.forVarConflict(CatscriptParserSymbolCheckingTest.java:40)
-
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in edu.montana.csci.csci468.parser.CatscriptParserSymbolCheckingTest
 [INFO] Running edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest
-[ERROR] Tests run: 9, Failures: 1, Errors: 3, Skipped: 0, Time elapsed: 0.02 s <<< FAILURE! - in edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest
-[ERROR] localVarStatementsWorkProperly  Time elapsed: 0 s  <<< ERROR!
-edu.montana.csci.csci468.parser.ParseErrorException: 
-Parse Errors Occurred:
-
-Line 3:  print(y)
-              ^
-
-Error: This symbol is not defined
-
-
-	at edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest.localVarStatementsWorkProperly(CatscriptStatementExecutionTest.java:43)
-
-[ERROR] varStatementWorksProperly  Time elapsed: 0 s  <<< ERROR!
-edu.montana.csci.csci468.parser.ParseErrorException: 
-Parse Errors Occurred:
-
-Line 2:print(x)
-            ^
-
-Error: This symbol is not defined
-
-
-	at edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest.varStatementWorksProperly(CatscriptStatementExecutionTest.java:32)
-
-[ERROR] returnStatementWorks  Time elapsed: 0.002 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-expected: <10
-> but was: <10
-null
->
-	at edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest.returnStatementWorks(CatscriptStatementExecutionTest.java:88)
-
-[ERROR] varInsideFunctionWorksProperly  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot read field "javaClass" because "type" is null
-	at edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest.varInsideFunctionWorksProperly(CatscriptStatementExecutionTest.java:51)
-
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s - in edu.montana.csci.csci468.eval.CatscriptStatementExecutionTest
 [INFO] Running edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest
-[ERROR] Tests run: 14, Failures: 4, Errors: 3, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! - in edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest
-[ERROR] returnBoolWorksProperly  Time elapsed: 0 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-expected: <true
-> but was: <true
-null
->
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.returnBoolWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:88)
-
-[ERROR] returnObjectWorksProperly  Time elapsed: 0 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-expected: <1
-> but was: <1
-null
->
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.returnObjectWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:72)
-
-[ERROR] returnListWithComponentTypeWorksProperly  Time elapsed: 0.001 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-expected: <[1, 2, 3]
-> but was: <[1, 2, 3]
-null
->
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.returnListWithComponentTypeWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:101)
-
-[ERROR] returnListWorksProperly  Time elapsed: 0.002 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "edu.montana.csci.csci468.parser.CatscriptType.toString()" because "componentType" is null
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.returnListWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:94)
-
-[ERROR] voidFunctionWorksProperly  Time elapsed: 0 s  <<< ERROR!
-edu.montana.csci.csci468.parser.ParseErrorException: 
-Parse Errors Occurred:
-
-Line 2:function foo() {}foo()print(x)
-                                  ^
-
-Error: This symbol is not defined
-
-
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.voidFunctionWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:12)
-
-[ERROR] listTypeArgWorksProperly  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "edu.montana.csci.csci468.parser.CatscriptType.toString()" because "componentType" is null
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.listTypeArgWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:50)
-
-[ERROR] returnIntWorksProperly  Time elapsed: 0.003 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: 
-expected: <1
-> but was: <1
-null
->
-	at edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest.returnIntWorksProperly(CatscriptFunctionArgsAndReturnEvalTest.java:82)
-
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s - in edu.montana.csci.csci468.eval.CatscriptFunctionArgsAndReturnEvalTest
 [INFO] Running edu.montana.csci.csci468.eval.CatscriptBasicExpressionEvalTest
-[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s - in edu.montana.csci.csci468.eval.CatscriptBasicExpressionEvalTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s - in edu.montana.csci.csci468.eval.CatscriptBasicExpressionEvalTest
 [INFO] Running edu.montana.csci.csci468.tokenizer.CatScriptTokenizerTest
-[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in edu.montana.csci.csci468.tokenizer.CatScriptTokenizerTest
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s - in edu.montana.csci.csci468.tokenizer.CatScriptTokenizerTest
 [INFO] 
 [INFO] Results:
 [INFO] 
-[ERROR] Failures: 
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.returnBoolWorksProperly:88 expected: <true
-> but was: <true
-null
->
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.returnIntWorksProperly:82 expected: <1
-> but was: <1
-null
->
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.returnListWithComponentTypeWorksProperly:101 expected: <[1, 2, 3]
-> but was: <[1, 2, 3]
-null
->
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.returnObjectWorksProperly:72 expected: <1
-> but was: <1
-null
->
-[ERROR]   CatscriptStatementExecutionTest.returnStatementWorks:88 expected: <10
-> but was: <10
-null
->
-[ERROR]   CatscriptParserTypeCheckingTest.assignmentTypeError:55 expected: <Incompatible types> but was: <This symbol is not defined>
-[ERROR]   CatscriptParserTypeCheckingTest.typeInferenceWorksForVars:45 expected: <int> but was: <null>
-[ERROR] Errors: 
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.listTypeArgWorksProperly:50->CatscriptTestBase.executeProgram:101 » NullPointer
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.returnListWorksProperly:94->CatscriptTestBase.executeProgram:101 » NullPointer
-[ERROR]   CatscriptFunctionArgsAndReturnEvalTest.voidFunctionWorksProperly:12->CatscriptTestBase.executeProgram:102 » ParseError
-[ERROR]   CatscriptStatementExecutionTest.localVarStatementsWorkProperly:43->CatscriptTestBase.executeProgram:102 » ParseError
-[ERROR]   CatscriptStatementExecutionTest.varInsideFunctionWorksProperly:51->CatscriptTestBase.executeProgram:102 » NullPointer
-[ERROR]   CatscriptStatementExecutionTest.varStatementWorksProperly:32->CatscriptTestBase.executeProgram:102 » ParseError
-[ERROR]   CatscriptParserExpressionsTest.parseUnterminatedFunctionCallExpression:110->CatscriptTestBase.parseExpression:33 » IndexOutOfBounds
-[ERROR]   CatscriptParserSymbolCheckingTest.duplicateVarsErrors:16->CatscriptTestBase.getParseError:86 » IllegalState
-[ERROR]   CatscriptParserSymbolCheckingTest.forVarConflict:40->CatscriptTestBase.getParseError:86 » IllegalState
-[ERROR]   CatscriptParserSymbolCheckingTest.paramsConflictWithGlobalVars:46->CatscriptTestBase.getParseError:86 » IllegalState
-[ERROR]   CatscriptParserTypeCheckingTest.additiveTypeError:72->CatscriptTestBase.getParseError:85 » NullPointer
-[ERROR]   CatscriptParserTypeCheckingTest.comparativeTypeError:77->CatscriptTestBase.getParseError:85 » NullPointer
-[ERROR]   CatscriptParserTypeCheckingTest.factorTypeError:67->CatscriptTestBase.getParseError:85 » NullPointer
-[ERROR]   CatscriptParserTypeCheckingTest.identifiersWorkProperly:32->CatscriptTestBase.parseStatement:49->CatscriptTestBase.parseStatement:56 » ParseError
-[ERROR]   CatscriptParserTypeCheckingTest.varTypeError:50->CatscriptTestBase.getParseError:86 » IllegalState
-[INFO] 
-[ERROR] Tests run: 116, Failures: 7, Errors: 15, Skipped: 0
+[INFO] Tests run: 116, Failures: 0, Errors: 0, Skipped: 0
 [INFO] 
 [INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
+[INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.772 s
-[INFO] Finished at: 2022-03-22T14:26:58-06:00
+[INFO] Total time:  3.271 s
+[INFO] Finished at: 2022-03-28T04:36:11-06:00
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project csci-468-spring2022: There are test failures.
-[ERROR] 
-[ERROR] Please refer to /home/carson/Projects/msu/csci-468-spring2022/grading/scripts/repos/christopher_danielson/target/surefire-reports for the individual test results.
-[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
-[ERROR] -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
