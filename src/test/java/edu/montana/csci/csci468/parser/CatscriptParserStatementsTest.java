@@ -54,6 +54,14 @@ public class CatscriptParserStatementsTest extends CatscriptTestBase {
         assertTrue(expr.hasErrors());
     }
 
+    //making test for capstone
+    /*@Test
+    public void ifStatementhasOpen() {
+        IfStatement expr = parseStatement("if(x > 10) print(x) }", false);
+        assertNotNull(expr);
+        assertTrue(expr.hasErrors());
+    }*/
+
     @Test
     public void ifStatementWithElseParses() {
         IfStatement expr = parseStatement("if(x > 10){ print(x) } else { print( 10 ) }", false);

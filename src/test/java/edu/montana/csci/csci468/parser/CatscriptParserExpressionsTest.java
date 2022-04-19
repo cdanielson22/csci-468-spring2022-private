@@ -48,6 +48,15 @@ public class CatscriptParserExpressionsTest extends CatscriptTestBase {
         assertFalse(expr.isAdd());
     }
 
+    // test for capstone
+    /*@Test
+    public void parseSubWithParen() {
+        AdditiveExpression expr = parseExpression("1 - (1 + 1)");
+        assertFalse(expr.isAdd());
+        assertTrue(expr.getLeftHandSide() instanceof IntegerLiteralExpression);
+        assertTrue(expr.getRightHandSide() instanceof ParenthesizedExpression);
+    }*/
+
     @Test
     public void parseTrueExpression() {
         BooleanLiteralExpression expr = parseExpression("true");

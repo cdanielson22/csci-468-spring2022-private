@@ -105,12 +105,24 @@ public class AdditiveExpression extends Expression {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        getLeftHandSide().compile(code);
-        getRightHandSide().compile(code);
-        if (isAdd()) {
-            code.addInstruction(Opcodes.IADD);
+
+        if (leftHandSide.getType() == CatscriptType.STRING || rightHandSide.getType() == CatscriptType.STRING) {
+            getLeftHandSide().compile(code);
+            box(code, getLeftHandSide().getType());
+            code.addMethodInstruction(Opcodes.INVOKESTATIC, "java/lang/String", "valueOf", "(Ljava/lang/Object;)Ljava/lang/String;");
+            getRightHandSide().compile(code);
+
+            box(code, getRightHandSide().getType());
+            code.addMethodInstruction(Opcodes.INVOKESTATIC, "java/lang/String", "valueOf", "(Ljava/lang/Object;)Ljava/lang/String;");
+            code.addMethodInstruction(Opcodes.INVOKEVIRTUAL, "java/lang/String", "concat", "(Ljava/lang/String;)Ljava/lang/String;");
         } else {
-            code.addInstruction(Opcodes.ISUB);
+            getLeftHandSide().compile(code);
+            getRightHandSide().compile(code);
+            if (isAdd()) {
+                code.addInstruction(Opcodes.IADD);
+            } else {
+                code.addInstruction(Opcodes.ISUB);
+            }
         }
     }
 

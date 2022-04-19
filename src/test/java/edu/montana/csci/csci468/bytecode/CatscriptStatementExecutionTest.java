@@ -91,4 +91,10 @@ public class CatscriptStatementExecutionTest extends CatscriptTestBase {
     }
 
 
+    // making a test for the capstone project
+    /*@Test
+    void nestedIfWorks(){
+        assertEquals("1\n", compile("if(true){ if(true){ print(1) } }"));
+    }*/
+
 }

@@ -1,9 +1,20 @@
 package edu.montana.csci.csci468.demo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class BytecodeDemo {
 
-    int add(int i) {
-        return i + 13;
-    }
 
+    public static void main(String[] args) {
+        int x = 1;
+        if (true) {
+            x= 0;
+        } else {
+            x = 0;
+        }
+    }
 }
+
