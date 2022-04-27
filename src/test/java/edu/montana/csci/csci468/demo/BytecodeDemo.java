@@ -9,12 +9,8 @@ public class BytecodeDemo {
 
 
     public static void main(String[] args) {
-        int x = 1;
-        if (true) {
-            x= 0;
-        } else {
-            x = 0;
-        }
+        int x = 20;
+
     }
 }
 

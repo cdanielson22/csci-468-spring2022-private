@@ -8,6 +8,7 @@ import edu.montana.csci.csci468.parser.ErrorType;
 import edu.montana.csci.csci468.parser.ParseError;
 import edu.montana.csci.csci468.parser.SymbolTable;
 import edu.montana.csci.csci468.parser.expressions.Expression;
+import org.objectweb.asm.Opcodes;
 
 import java.util.List;
 
@@ -60,7 +61,15 @@ public class ReturnStatement extends Statement {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        super.compile(code);
+        if (expression == null) {
+            code.addInstruction(Opcodes.RETURN);
+        } else {
+            CatscriptType returnType = function.getType();
+            CatscriptType expressionType = expression.getType();
+            // do we need to box?
+
+            // issue an IRETURN or ARETURN
+        }
     }
 
 }

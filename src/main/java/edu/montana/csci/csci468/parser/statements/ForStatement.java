@@ -7,7 +7,11 @@ import edu.montana.csci.csci468.parser.ErrorType;
 import edu.montana.csci.csci468.parser.ParseError;
 import edu.montana.csci.csci468.parser.SymbolTable;
 import edu.montana.csci.csci468.parser.expressions.Expression;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.Opcodes;
 
+import java.awt.*;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -92,7 +96,31 @@ public class ForStatement extends Statement {
 
     @Override
     public void compile(ByteCodeGenerator code) {
-        super.compile(code);
+
+        Integer iterSlot = code.nextLocalStorageSlot();
+        Label iterStart = new Label();
+        Label end = new Label();
+
+        expression.compile(code);
+        code.addMethodInstruction(Opcodes.INVOKEINTERFACE, ByteCodeGenerator.internalNameFor(List.class), "iterator", "()java/until/Iterator");
+        code.addVarInstruction(Opcodes.ASTORE, iterSlot);
+        code.addLabel(iterStart);
+        code.addVarInstruction(Opcodes.ALOAD, iterSlot);
+        code.addMethodInstruction(Opcodes.INVOKEINTERFACE, ByteCodeGenerator.internalNameFor(Iterator.class), "hasNext", "()Z");
+        code.addJumpInstruction(Opcodes.IFEQ, end);
+
+        CatscriptType componentType = getComponentType();
+        code.addVarInstruction(Opcodes.ALOAD, iterSlot);
+        code.addMethodInstruction(Opcodes.INVOKEINTERFACE, ByteCodeGenerator.internalNameFor(Iterator.class), "next", "()Ljava/lang/Object;");
+        code.addTypeInstruction(Opcodes.CHECKCAST, ByteCodeGenerator.internalNameFor(componentType.getJavaType()));
+        unbox(code, componentType);
+
+        Integer localStorageSlot = code.createLocalStorageSlotFor(variableName);
+        // store the value into the slot
+
+        // compile the body
+        // jump back up
+        code.addLabel(end);
     }
 
 }
