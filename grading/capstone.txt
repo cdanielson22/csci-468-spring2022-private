@@ -1,4 +1,1 @@
-Errors:
-
-- Missing source zip
-- Missing christopher_danielson_portfolio.pdf
+All Good
