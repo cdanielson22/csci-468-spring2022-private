@@ -91,8 +91,12 @@ public class FunctionCallExpression extends Expression {
         for (int i = 0; i < arguments.size(); i++) {
              Expression expression = arguments.get(i);
              expression.compile(code);
-             CatscriptType paraType = function.getParameterType(i);
+             if (expression.getType() == CatscriptType.OBJECT) {
+                 box(code, expression.getType());
+             }
+             // paraType = function.getParameterType(i);
              // TODO what if the para type for arg i is 'object' and the argument is 'int' or 'boolean'
+
         }
         code.addMethodInstruction(Opcodes.INVOKEVIRTUAL, code.getProgramInternalName(), name, function.getDescriptor());
 

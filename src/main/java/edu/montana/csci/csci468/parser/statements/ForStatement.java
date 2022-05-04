@@ -117,9 +117,19 @@ public class ForStatement extends Statement {
 
         Integer localStorageSlot = code.createLocalStorageSlotFor(variableName);
         // store the value into the slot
+        if (componentType == CatscriptType.INT || componentType == CatscriptType.BOOLEAN) {
+            code.addVarInstruction(Opcodes.ISTORE, iterSlot);
+        } else {
+            code.addVarInstruction(Opcodes.ASTORE, iterSlot);
+        }
 
         // compile the body
+        for(Statement statement : body) {
+            statement.compile(code);
+        }
+
         // jump back up
+        code.addJumpInstruction(Opcodes.GOTO, iterStart);
         code.addLabel(end);
     }
 

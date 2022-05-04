@@ -64,9 +64,19 @@ public class ReturnStatement extends Statement {
         if (expression == null) {
             code.addInstruction(Opcodes.RETURN);
         } else {
+            expression.compile(code);
             CatscriptType returnType = function.getType();
             CatscriptType expressionType = expression.getType();
             // do we need to box?
+            if (returnType == CatscriptType.INT || returnType == CatscriptType.BOOLEAN) {
+                code.addInstruction(Opcodes.IRETURN);
+            } else {
+                if (expression.getType() == CatscriptType.INT || expression.getType() == CatscriptType.BOOLEAN) {
+                    box(code, expressionType);
+                }
+                code.addInstruction(Opcodes.ARETURN);
+            }
+
 
             // issue an IRETURN or ARETURN
         }

@@ -163,9 +163,19 @@ public class FunctionDefinitionStatement extends Statement {
         }
 
         // compile the body
+        for (Statement statement : body) {
+            statement.compile(code);
+        }
 
         if(type.equals(CatscriptType.VOID)) {
+            code.addInstruction(Opcodes.RETURN);
             // add a RETURN instruction
+        } else {
+            if(getType() == CatscriptType.INT || getType() == CatscriptType.BOOLEAN) {
+                code.addInstruction(Opcodes.IRETURN);
+            } else {
+                code.addInstruction(Opcodes.ARETURN);
+            }
         }
         code.popMethod();
     }
